@@ -43,10 +43,11 @@ class E2EExtension(Extension):
         self.logger.info(
             f"Received event for subscription request {request['id']} in status {request['status']}"
         )
+        delay = random.randint(15, 60)
         self.logger.info(
-            "Wait 15 seconds before proceed",
+            f"Wait {delay} seconds before proceed",
         )
-        time.sleep(30)
+        time.sleep(delay)
         if request['status'] == 'pending':
             param_a = ''.join(random.choice(string.ascii_lowercase) for _ in range(10))
             param_b = ''.join(random.choice(string.ascii_lowercase) for _ in range(6))
@@ -135,6 +136,11 @@ class E2EExtension(Extension):
 
     def validate_asset_purchase_request(self, request):
         self.logger.info(f"Asset Validation with id {request['id']}")
+        delay = random.randint(15, 40)
+        self.logger.info(
+            f"Wait {delay} seconds before proceed",
+        )
+        time.sleep(delay)
         return ValidationResponse.done(request)
 
     def validate_asset_change_request(self, request):
